@@ -4,7 +4,7 @@
 This program should in no way, shape, or form be used for actual trading. This program was created for purely Quantitative Finance and Math methods. Plus the data takes long to load in the visualizer, and options greeks fluctuate very quick to be sitting around using this program.
 
 ## Snapshot
-![alt](https://github.com/marscolony2040/OpGreeks/blob/main/images/pic.png)
+![alt](https://github.com/mosharieff/OptionsGreeksVisualizer/blob/main/images/pic.png)
 
 ## Instructions
 In order to get this program running you will need to have NPM and React.js installed (there are many tutorials online for installing on the Windows, Mac, or Linux). Additionally you will need the python libraries aiohttp, websockets, numpy, and scipy installed.
