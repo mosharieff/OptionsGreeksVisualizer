@@ -69,7 +69,10 @@ def C(tree, S, K, r, q, v, t, nodes, optype='call'):
             A = tree[ls - 1 - 2][cx + 1]
             B = tree[ls - 1][cx + 1]
             C = tree[ls -1 + 2][cx + 1]
-            tree[ls - 1][cx] = max(np.exp(-r*dt)*(U*A + M*B + D*C), 0)
+            if optype == 'call':
+                tree[ls - 1][cx] = max(np.exp(-r*dt)*(U*A + M*B + D*C), tree[ls - 2][cx] - K)
+            else:
+                tree[ls - 1][cx] = max(np.exp(-r*dt)*(U*A + M*B + D*C), K - tree[ls - 2][cx])
             ls += 2
         osx += 2
 
