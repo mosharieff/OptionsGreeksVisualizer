@@ -9,6 +9,12 @@ This program should in no way, shape, or form be used for actual trading. This p
 ## Instructions
 In order to get this program running you will need to have NPM and React.js installed (there are many tutorials online for installing on the Windows, Mac, or Linux). Additionally you will need the python libraries aiohttp, websockets, numpy, and scipy installed.
 
+#### Installation
+```sh
+pip install -r requirements.txt
+npm install --force
+```
+
 ## Running
 To run this app you need to navigate to its root directly and open two terminals. In the first terminal type in ``` python server``` and in the second terminal type in ``` npm start```
 
