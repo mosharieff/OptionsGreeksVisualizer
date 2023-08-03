@@ -108,7 +108,7 @@ def Rho(tree,S,K,r,q,v,t,nodes,optype):
     dr = 0.01
     C1 = C(tree,S,K,r+dr,q,v,t,nodes,optype=optype)
     C0 = C(tree,S,K,r-dr,q,v,t,nodes,optype=optype)
-    return (C1 - C0)/(2*dr)
+    return (C1 - C0)/(2*dr)/100
 
 def Greeks(S,K,r,q,v,t,optype,nodes=nodes):
     delta = Delta(treez,S,K,r,q,v,t,nodes,optype)
