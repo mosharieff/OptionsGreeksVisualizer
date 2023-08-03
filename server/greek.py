@@ -120,8 +120,8 @@ def Greeks(S,K,r,q,v,t,optype,nodes=nodes):
         delta = 0
     if gamma > 1 or gamma < -1:
         gamma = 0
-    if theta > 0 or theta < -5:
+    if theta > 0 or theta < -9:
         theta = 0
-    if rho > 2 or rho < -2:
+    if rho > 5 or rho < -5:
         rho = 0
     return delta, gamma, theta, vega, rho
