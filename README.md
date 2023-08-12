@@ -15,6 +15,8 @@ npm install --force
 ## Running
 To run this app you need to navigate to its root directly and open two terminals. In the first terminal type in ``` python server``` and in the second terminal type in ``` npm start```
 
+Once the server and web app are open (in seperate terminals), you will be able to type in a number into the Number of Stocks input and a set of input holders will be generated, in which you enter each individual stock. Once you have entered your stock tickers press the blue button up top "Options Greeks Visualizer" and it will import all of the options greeks graphs for you.
+
 ## Rate Limits
 This apps payload is very heavy and will require lots of requests. I would advise you to use a max of three to five stocks in the visualizer as to not get ratelimited.
 
