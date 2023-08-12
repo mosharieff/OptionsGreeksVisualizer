@@ -4,7 +4,7 @@
 This program should in no way, shape, or form be used for actual trading. This program was created for purely Quantitative Finance and Math methods. Plus the data takes long to load in the visualizer, and options greeks fluctuate very quick to be sitting around using this program.
 
 ## Instructions
-In order to get this program running you will need to have NPM and React.js installed (there are many tutorials online for installing on the Windows, Mac, or Linux). Additionally you will need the python libraries aiohttp, websockets, numpy, and scipy installed.
+In order to get this program running you will need to have Node, NPM and React.js installed (there are many tutorials online for installing on the Windows, Mac, or Linux). Additionally you will need the python libraries aiohttp, websockets, numpy, and scipy installed.
 
 #### Installation
 ```sh
