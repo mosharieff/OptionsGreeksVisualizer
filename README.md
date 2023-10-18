@@ -45,5 +45,11 @@ This apps payload is very heavy and will require lots of requests. I would advis
 ### Vega
 ![alt](https://github.com/mosharieff/OptionsGreeksVisualizer/blob/main/images/Vega.png)
 
+### Vanna
+![alt](https://github.com/mosharieff/OptionsGreeksVisualizer/blob/main/images/Vanna.png)
+
+### Volga
+![alt](https://github.com/mosharieff/OptionsGreeksVisualizer/blob/main/images/Volga.png)
+
 ### Rho
 ![alt](https://github.com/mosharieff/OptionsGreeksVisualizer/blob/main/images/Rho.png)
