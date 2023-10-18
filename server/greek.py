@@ -104,6 +104,22 @@ def Vega(tree,S,K,r,q,v,t,nodes,optype):
     C0 = C(tree,S,K,r,q,v-dv,t,nodes,optype=optype)
     return ((C1 - C0)/(2*dv))/100
 
+def Volga(tree,S,K,r,q,v,t,nodes,optype):
+    dv = 0.01
+    C2 = C(tree,S,K,r,q,v+dv,t,nodes,optype=optype)
+    C1 = C(tree,S,K,r,q,v,t,nodes,optype=optype)
+    C0 = C(tree,S,K,r,q,v-dv,t,nodes,optype=optype)
+    return ((C2 - 2.0*C1 + C0)/pow(dv, 2))/100
+
+def Vanna(tree,S,K,r,q,v,t,nodes,optype):
+    dS = 0.01*S
+    dv = 0.01
+    C3 = C(tree,S+dS,K,r,q,v+dv,t,nodes,optype=optype)
+    C2 = C(tree,S+dS,K,r,q,v,t,nodes,optype=optype)
+    C1 = C(tree,S,K,r,q,v+dv,t,nodes,optype=optype)
+    C0 = C(tree,S,K,r,q,v,t,nodes,optype=optype)
+    return ((C3 - C2 - C1 + C0)/(dS*dv))/100
+
 def Rho(tree,S,K,r,q,v,t,nodes,optype):
     dr = 0.01
     C1 = C(tree,S,K,r+dr,q,v,t,nodes,optype=optype)
@@ -116,12 +132,19 @@ def Greeks(S,K,r,q,v,t,optype,nodes=nodes):
     theta = Theta(treez,S,K,r,q,v,t,nodes,optype)
     vega = Vega(treez,S,K,r,q,v,t,nodes,optype)
     rho = Rho(treez,S,K,r,q,v,t,nodes,optype)
+    volga = Volga(treez,S,K,r,q,v,t,nodes,optype)
+    vanna = Vanna(treez,S,K,r,q,v,t,nodes,optype)
     if delta > 2 or delta < -2:
         delta = 0
-    if gamma > 1 or gamma < -1:
+    if gamma > 1 or gamma < 0:
         gamma = 0
     if theta > 0 or theta < -9:
         theta = 0
     if rho > 5 or rho < -5:
         rho = 0
-    return delta, gamma, theta, vega, rho
+    if volga < 0 or volga > 0.5:
+        volga = 0
+    if vanna < 0 or vanna > 1:
+        vanna = 0
+    
+    return delta, gamma, theta, vega, rho, volga, vanna

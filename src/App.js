@@ -21,6 +21,8 @@ export default class App extends React.Component {
     this.theta_plots = this.theta_plots.bind(this)
     this.vega_plots = this.vega_plots.bind(this)
     this.rho_plots = this.rho_plots.bind(this)
+    this.volga_plots = this.volga_plots.bind(this)
+    this.vanna_plots = this.vanna_plots.bind(this)
 
     this.handle_change = this.handle_change.bind(this)
     this.handle_submit = this.handle_submit.bind(this)
@@ -465,6 +467,144 @@ export default class App extends React.Component {
     return hold
   }
 
+  volga_plots(bg, fg){
+    const hold = []
+    const { response } = this.state 
+    if(response != null){
+      response['tickers'].forEach((ix) => {
+        hold.push(
+          <Plot 
+            data={[{
+              x: response['x']['call'][ix],
+              y: response['y']['call'][ix],
+              z: response['volga']['call'][ix],
+              type: 'scatter3d',
+              mode: 'markers',
+              marker: {
+                size: 2,
+                color: 'limegreen'
+              },
+              name: 'Call Options'
+            },
+            {
+              x: response['x']['put'][ix],
+              y: response['y']['put'][ix],
+              z: response['volga']['put'][ix],
+              type: 'scatter3d',
+              mode: 'markers',
+              marker: {
+                size: 2,
+                color: 'red'
+              },
+              name: 'Put Options'
+            }]}
+            layout={{
+              title: {
+                text: 'Volga for ' + ix,
+                font: {
+                  color: fg
+                }
+              },
+              showlegend: false,
+              paper_bgcolor: bg,
+              plot_bgcolor: fg,
+              scene:{
+                xaxis: {
+                  title: 'Strike Price',
+                  color: fg,
+                  showgrid: false,
+                  autorange: 'reversed'
+                },
+                yaxis: {
+                  title: 'Expiration',
+                  color: fg,
+                  showgrid: false,
+                  autorange: 'reversed'
+                },
+                zaxis: {
+                  title: 'Volga',
+                  color: fg,
+                  showgrid: false
+                }
+              }
+            }}
+          />
+        )
+
+      })
+    }
+    return hold
+  }
+
+  vanna_plots(bg, fg){
+    const hold = []
+    const { response } = this.state 
+    if(response != null){
+      response['tickers'].forEach((ix) => {
+        hold.push(
+          <Plot 
+            data={[{
+              x: response['x']['call'][ix],
+              y: response['y']['call'][ix],
+              z: response['vanna']['call'][ix],
+              type: 'scatter3d',
+              mode: 'markers',
+              marker: {
+                size: 2,
+                color: 'limegreen'
+              },
+              name: 'Call Options'
+            },
+            {
+              x: response['x']['put'][ix],
+              y: response['y']['put'][ix],
+              z: response['vanna']['put'][ix],
+              type: 'scatter3d',
+              mode: 'markers',
+              marker: {
+                size: 2,
+                color: 'red'
+              },
+              name: 'Put Options'
+            }]}
+            layout={{
+              title: {
+                text: 'Vanna for ' + ix,
+                font: {
+                  color: fg
+                }
+              },
+              showlegend: false,
+              paper_bgcolor: bg,
+              plot_bgcolor: fg,
+              scene:{
+                xaxis: {
+                  title: 'Strike Price',
+                  color: fg,
+                  showgrid: false,
+                  autorange: 'reversed'
+                },
+                yaxis: {
+                  title: 'Expiration',
+                  color: fg,
+                  showgrid: false,
+                  autorange: 'reversed'
+                },
+                zaxis: {
+                  title: 'Vanna',
+                  color: fg,
+                  showgrid: false
+                }
+              }
+            }}
+          />
+        )
+
+      })
+    }
+    return hold
+  }
+
   render() {
 
     const bg = 'black'
@@ -507,6 +647,8 @@ export default class App extends React.Component {
               <Tab>Gamma</Tab>
               <Tab>Theta</Tab>
               <Tab>Vega</Tab>
+              <Tab>Volga</Tab>
+              <Tab>Vanna</Tab>
               <Tab>Rho</Tab>
             </TabList>
 
@@ -524,6 +666,12 @@ export default class App extends React.Component {
             </TabPanel>
             <TabPanel>
               {this.vega_plots(bg, fg)}
+            </TabPanel>
+            <TabPanel>
+              {this.volga_plots(bg, fg)}
+            </TabPanel>
+            <TabPanel>
+              {this.vanna_plots(bg, fg)}
             </TabPanel>
             <TabPanel>
               {this.rho_plots(bg, fg)}

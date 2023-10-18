@@ -135,6 +135,8 @@ class OpServer(Misc):
         self.theta = {'call':{}, 'put':{}}
         self.vega = {'call':{}, 'put':{}}
         self.rho = {'call':{}, 'put':{}}
+        self.volga = {'call':{}, 'put':{}}
+        self.vanna = {'call':{}, 'put':{}}
         
     def start(self):
         loop = asyncio.get_event_loop()
@@ -176,6 +178,8 @@ class OpServer(Misc):
                         self.theta[op][tick] = []
                         self.vega[op][tick] = []
                         self.rho[op][tick] = []
+                        self.volga[op][tick] = []
+                        self.vanna[op][tick] = []
                         await asyncio.sleep(0.1)
                         
                 
@@ -206,12 +210,14 @@ class OpServer(Misc):
                         for ii, (strike, mat, vol) in enumerate(zip(self.x[op][tick], self.y[op][tick], self.z[op][tick])):
                             rf = match_rf(mat, self.yields)
                           
-                            delta, gamma, theta, vega, rho = GZ(s, strike, rf, q, vol, mat, op)
+                            delta, gamma, theta, vega, rho, volga, vanna = GZ(s, strike, rf, q, vol, mat, op)
                             self.delta[op][tick].append(delta)
                             self.gamma[op][tick].append(gamma)
                             self.theta[op][tick].append(theta)
                             self.vega[op][tick].append(vega)
                             self.rho[op][tick].append(rho)
+                            self.volga[op][tick].append(volga)
+                            self.vanna[op][tick].append(vanna)
 
                             title = f'Parsing {tick} for {op} option | Left: {LZ - ii}'
                             await ws.send(json.dumps({'title': title, 'color': colur[op][0], 'color2':colur[op][1], 'NX': round(ii/LZ*100, 2)}))
@@ -225,6 +231,8 @@ class OpServer(Misc):
                        'theta': self.theta,
                        'vega': self.vega,
                        'rho': self.rho, 
+                       'volga': self.volga,
+                       'vanna': self.vanna,
                        'tickers': self.tickers}
                 
                 print("Writing to Web-App")
