@@ -8,12 +8,12 @@ split = int(m / 2 - 1)
 def p_dn(r, q, v, dt):
     top = np.exp(v*np.sqrt(dt/2)) - np.exp((r - q)*dt/2) 
     bot = np.exp(v*np.sqrt(dt/2)) - np.exp(-v*np.sqrt(dt/2))
-    return pow(top/bot, 2)
+    return pow(top/bot, 2) if bot != 0 else 0
 
 def p_up(r, q, v, dt):
     top = np.exp((r - q)*dt/2) - np.exp(-v*np.sqrt(dt/2))
     bot = np.exp(v*np.sqrt(dt/2)) - np.exp(-v*np.sqrt(dt/2))
-    return pow(top/bot, 2)
+    return pow(top/bot, 2) if bot != 0 else 0
 
 def p_m(r, q, v, dt):
     return 1 - (p_up(r,q,v,dt) + p_dn(r,q,v,dt))
